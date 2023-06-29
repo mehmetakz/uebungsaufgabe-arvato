@@ -42,7 +42,7 @@ public class AutomatService {
         };
         return automat.getGuthabenDesKunden();
     }
-
+    // Hier werden die Getränke aus dem Automaten gekauft und eine Auswahl getroffen, die per Char erfolt als Key für die Map
     public Automat getraenkKaufen(Automat automat, char auswahl){
         int guthabenKundeInHundert = 1;
         double guthabenKunde = automat.getGuthabenDesKunden();
@@ -109,6 +109,17 @@ public class AutomatService {
         }
         return guthabenKunde;
     }
+
+    /*
+     Kurze Doku
+     Zuerst muss ein Automat erzeugt werden via dem AutomatenService erstelleAutomatenMitGetränke
+     Dieser muss dann in ein Objekt der Klasse Automat zugewiesen werden, da der Returnvalue von erstelleAutomatenMitGetränke Automaten ist
+     Die Map kann manipuliert werden und je nach Standort andere Getränke mit verschiedenster Anzahl geführt werden
+     Der Zugriff erfolgt wie man es in einem Automaten kennt Via Fachauswahl.
+     Dann mus in den Automaten Geld eingeworfen werden. Der
+
+     Als letzten Schritt habe ich versucht das Wechselgeld darzustellen, aber durch die knappe Zeit gegen Ende ist mir das leider nicht so gut gelungen.
+     */
 
 
 
