@@ -44,7 +44,8 @@ class AutomatServiceTest {
 
     @Test
     void getrankeKaufenTest(){
-
+        assertNotNull(automatService.getraenkKaufen(automat, 'A'));
+        assertEquals("Cola", automatService.getraenkKaufen(automat, 'A').getFaecher().get('A').getNameGetraenk());
     }
 
 }
