@@ -34,12 +34,17 @@ class AutomatServiceTest {
                 automatService.erstelleAutomatMitGetraenke("Universität", 100).getFaecher().get('B').getNameGetraenk());
     }
     @Test
-    void guthabenEinwerfen(){
+    void guthabenEinwerfenTest(){
         //Guthaben steigert sich bei einer Automateninstanz
         assertEquals(2.00, automatService.guthabenEinwerfen(2.00, automat));
         assertEquals(4.00, automatService.guthabenEinwerfen(2.00, automat));
         //Guthaben muss 6.00€ betragen
         assertNotEquals(2.00, automatService.guthabenEinwerfen(2.00, automat));
+    }
+
+    @Test
+    void getrankeKaufenTest(){
+
     }
 
 }

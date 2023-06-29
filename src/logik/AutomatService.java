@@ -43,7 +43,8 @@ public class AutomatService {
         return automat.getGuthabenDesKunden();
     }
 
-    public double getraenkKaufen(Automat automat, char auswahl){
+    public Automat getraenkKaufen(Automat automat, char auswahl){
+        int guthabenKundeInHundert = 1;
         double guthabenKunde = automat.getGuthabenDesKunden();
         double guthabenAutomat = automat.getGuthabenDesAutomaten();
 
@@ -57,27 +58,66 @@ public class AutomatService {
             System.out.println("Dieses Fach ist leider leer.");
         } else if(automat.getGuthabenDesAutomaten()<automat.getFaecher().get(auswahl).getKosten()){
             System.out.println("Leider nicht genug Wechselgeld im Automaten vorhanden");
-        } else if(automat.getGuthabenDesKunden()>=automat.getFaecher().get(auswahl).getKosten()){
+        } else if(automat.getGuthabenDesKunden()<=automat.getFaecher().get(auswahl).getKosten()){
             System.out.println("Leider reicht ihr Guthaben nicht aus. Bitte laden sie mehr Geld auf.");
         } else {
             System.out.println("Ausgabe vom Getränk: " + automat.getFaecher().get(auswahl).getNameGetraenk());
             //Um eine Einheit reduzieren
             automat.getFaecher().get(auswahl).setAnzahl(automat.getFaecher().get(auswahl).getAnzahl() - 1);
+
             guthabenKunde = guthabenKunde - automat.getFaecher().get(auswahl).getKosten();
 
-
+            System.out.println(berechneWechselgeld(automat));
         }
 
 
+        return automat;
+    }
 
+    public double berechneWechselgeld(Automat automat){
+        int guthabenKundeInHundert = 1;
+        double guthabenKunde = automat.getGuthabenDesKunden();
+        double guthabenAutomat = automat.getGuthabenDesAutomaten();
+        double umrechnenAutomat = 100 * guthabenAutomat;
+        double umrechnenKunde   = 100 * guthabenKunde;
+        int guthabenAutomatInHundert = (int) umrechnenAutomat;
+        guthabenKundeInHundert      = (int) umrechnenKunde;
 
-        return 0.00;
+        int wechselGeld = 0;
+        while(guthabenKundeInHundert != 0){
+            if (guthabenKundeInHundert % 200 > 0){
+                wechselGeld = 200;
+                guthabenKundeInHundert = guthabenKundeInHundert % 200;
+                System.out.println(wechselGeld);
+            } else if (guthabenKundeInHundert % 100 > 0) {
+                wechselGeld = 100;
+                guthabenKundeInHundert = guthabenKundeInHundert % 100;
+                System.out.println(wechselGeld);
+            } else if (guthabenKundeInHundert % 50 > 0) {
+                wechselGeld = 50;
+                guthabenKundeInHundert = guthabenKundeInHundert % 50;
+                System.out.println(wechselGeld);
+            } else if (guthabenKundeInHundert % 20 > 0 ) {
+                wechselGeld = 20;
+                guthabenKundeInHundert = guthabenKundeInHundert % 20;
+                System.out.println(wechselGeld);
+            } else if (guthabenKundeInHundert % 10 > 0){
+                wechselGeld = 10;
+                guthabenKundeInHundert = guthabenKundeInHundert % 10;
+                System.out.println(wechselGeld);
+            }
+        }
+        return guthabenKunde;
     }
 
 
 
     public static void main(String[] args){
-
+    AutomatService automatService = new AutomatService();
+    Automat automat = automatService.erstelleAutomatMitGetraenke("Uni", 100);
+    automatService.guthabenEinwerfen(2.00, automat);
+    automatService.guthabenEinwerfen(2.00, automat);
+    automatService.getraenkKaufen(automat, 'A');
 
     }
 }
